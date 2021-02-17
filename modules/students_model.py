@@ -5,8 +5,6 @@ class Student():
         self.lastname = kwargs['lastname']
         self.dni = kwargs['dni']
         self.career = kwargs['career_name']
-        print(kwargs.keys())
-
         if 'email' in kwargs.keys():
             self.email = kwargs['email']
 
@@ -25,11 +23,9 @@ class Student():
         if 'second_lastname' in vars(self).keys():
             message += f' {self.second_lastname}'
 
-        message += f'. {self.dni}'
-        message += f'. {self.career}'
+        message += f'.\n{self.dni}.'
+        message += f'\n{self.career}.'
         if 'email' in vars(self).keys():
-            message += f'. {self.email}'
+            message += f'\n{self.email}.'
 
         return message
-
-# student = Student(**s)
