@@ -1,14 +1,45 @@
+import random
 import requests
 from .students_model import Student
 
 
-url_api = 'https://unet-api.herokuapp.com/api/v1/search/'
+api_url = 'https://unet-api.herokuapp.com/api/v1/search/'
+
+
+def process_many_students_data(students_data):
+    messages_list = []
+    number_of_students = 10
+    if len(students_data) > number_of_students:
+        messages_list.append(f'There are {len(students_data)}')
+        messages_list.append(f'Here {number_of_students} are some random students ')
+        selection = random.sample(students_data, number_of_students)
+    else:
+        selection = students_data
+
+    for data in selection:
+        student = Student(**data)
+        messages_list.append(student.show_data())
+
+    return messages_list
+
+
+def search_by_name(name):
+    api_endpoint = f'students/name/{name}'
+    response = requests.get(''.join([api_url, api_endpoint]))
+    if response.status_code == 200:
+        messages = process_many_students_data(response.json())
+        return messages
+    if response.status_code == 404:
+        return 'There is not students with that name'
 
 
 def search_by_dni(dni):
-    dni_endpoint = f'/student/dni/{dni}'
-    response = requests.get(''.join([url_api, dni_endpoint]))
+    api_endpoint = f'/student/dni/{dni}'
+    response = requests.get(''.join([api_url, api_endpoint]))
     if response.status_code == 200:
         student = Student(**response.json())
-        
-        return student
+
+        return student.show_data()
+
+    if response.status_code == 404:
+        return 'Dni not found'
