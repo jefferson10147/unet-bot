@@ -1,7 +1,11 @@
 import logging
 from decouple import config
 from telegram.ext import Updater, CommandHandler
-from modules.searches import search_by_dni, search_by_name
+from modules.searches import (
+    search_by_dni,
+    search_by_name,
+    search_by_second_name
+)
 
 
 logging.basicConfig(
@@ -22,21 +26,32 @@ def send_many_messages(chat_id, context, messages):
 
 
 def search_dni(update, context):
-    message = search_by_dni(context.args[0])
+    data = search_by_dni(context.args[0])
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=message
+        text=data
     )
 
 
 def search_name(update, context):
-    messages = search_by_name(context.args[0])
-    if isinstance(messages, list):
-        send_many_messages(update.effective_chat.id, context, messages)
+    data = search_by_name(context.args[0])
+    if isinstance(data, list):
+        send_many_messages(update.effective_chat.id, context, data)
     else:
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=messages
+            text=data
+        )
+
+
+def search_second_name(update, context):
+    data = search_by_second_name(context.args[0])
+    if isinstance(data, list):
+        send_many_messages(update.effective_chat.id, context, data)
+    else:
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=data
         )
 
 
@@ -51,10 +66,13 @@ def start_bot():
     start_handler = CommandHandler('start', start)
     search_dni_handler = CommandHandler('dni', search_dni)
     search_name_handler = CommandHandler('name', search_name)
+    search_second_name_handler = CommandHandler(
+        'second_name', search_second_name)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(search_dni_handler)
     dispatcher.add_handler(search_name_handler)
+    dispatcher.add_handler(search_second_name_handler)
 
 
 def run():
