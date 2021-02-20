@@ -5,7 +5,7 @@ class Student():
         self.lastname = kwargs['lastname']
         self.dni = kwargs['dni']
         self.career = kwargs['career_name']
-        if 'email' in kwargs.keys():
+        if kwargs['email']:
             self.email = kwargs['email']
 
         if 'second_name' in kwargs.keys():
