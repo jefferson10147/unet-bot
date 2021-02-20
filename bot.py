@@ -5,7 +5,8 @@ from modules.searches import (
     search_by_dni,
     search_by_name,
     search_by_second_name,
-    search_by_lastname
+    search_by_lastname,
+    search_by_second_lastname
 )
 
 
@@ -67,6 +68,17 @@ def search_lastname(update, context):
         )
 
 
+def search_second_lastname(update, context):
+    data = search_by_second_lastname(context.args[0])
+    if isinstance(data, list):
+        send_many_messages(update.effective_chat.id, context, data)
+    else:
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=data
+        )
+
+
 def start(update, context):
     context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -82,12 +94,15 @@ def start_bot():
         'second_name', search_second_name
     )
     search_lastname_handler = CommandHandler('lastname', search_lastname)
+    search_second_lastname_handler = CommandHandler(
+        'second_lastname', search_second_lastname)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(search_dni_handler)
     dispatcher.add_handler(search_name_handler)
     dispatcher.add_handler(search_second_name_handler)
     dispatcher.add_handler(search_lastname_handler)
+    dispatcher.add_handler(search_second_lastname_handler)
 
 
 def run():

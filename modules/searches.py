@@ -51,7 +51,17 @@ def search_by_lastname(lastname):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There is not students with that second_name'
+        return 'There is not students with that lastname'
+
+
+def search_by_second_lastname(second_lastname):
+    api_endpoint = f'students/second_lastname/{second_lastname}'
+    response = requests.get(''.join([api_url, api_endpoint]))
+    if response.status_code == 200:
+        messages = process_students_data(response.json())
+        return messages
+    if response.status_code == 404:
+        return 'There is not students with that second lastname'
 
 
 def search_by_dni(dni):
