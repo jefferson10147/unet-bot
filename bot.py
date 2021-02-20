@@ -4,7 +4,8 @@ from telegram.ext import Updater, CommandHandler
 from modules.searches import (
     search_by_dni,
     search_by_name,
-    search_by_second_name
+    search_by_second_name,
+    search_by_lastname
 )
 
 
@@ -55,6 +56,17 @@ def search_second_name(update, context):
         )
 
 
+def search_lastname(update, context):
+    data = search_by_lastname(context.args[0])
+    if isinstance(data, list):
+        send_many_messages(update.effective_chat.id, context, data)
+    else:
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=data
+        )
+
+
 def start(update, context):
     context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -67,12 +79,15 @@ def start_bot():
     search_dni_handler = CommandHandler('dni', search_dni)
     search_name_handler = CommandHandler('name', search_name)
     search_second_name_handler = CommandHandler(
-        'second_name', search_second_name)
+        'second_name', search_second_name
+    )
+    search_lastname_handler = CommandHandler('lastname', search_lastname)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(search_dni_handler)
     dispatcher.add_handler(search_name_handler)
     dispatcher.add_handler(search_second_name_handler)
+    dispatcher.add_handler(search_lastname_handler)
 
 
 def run():
