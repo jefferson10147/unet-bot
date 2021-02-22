@@ -1,6 +1,6 @@
 import logging
 from decouple import config
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 from modules.searches import (
     search_by_dni,
     search_by_name,
@@ -8,6 +8,7 @@ from modules.searches import (
     search_by_lastname,
     search_by_second_lastname,
     search_by_name_and_lastname,
+    search_by_expression,
     search_picture
 )
 
@@ -86,6 +87,11 @@ def search_name_lastname(update, context):
     process_data(update, context, data)
 
 
+def search_expression(update, context):
+    data = search_by_expression(update.message.text)
+    process_data(update, context, data)
+
+
 def start(update, context):
     context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -110,6 +116,7 @@ def start_bot():
         'name_lastname',
         search_name_lastname
     )
+    text_handler = MessageHandler(Filters.text, search_expression)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(search_dni_handler)
@@ -118,6 +125,7 @@ def start_bot():
     dispatcher.add_handler(search_lastname_handler)
     dispatcher.add_handler(search_second_lastname_handler)
     dispatcher.add_handler(search_name_lastname_handler)
+    dispatcher.add_handler(text_handler)
 
 
 def run():

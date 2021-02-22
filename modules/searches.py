@@ -6,14 +6,18 @@ from .students_model import Student
 api_url = 'https://unet-api.herokuapp.com/api/v1/search/'
 
 
-def process_students_data(students_data):
+def process_students_data(students_data, number_of_students=10, random_data=True):
     messages_list = []
-    number_of_students = 10
-    if len(students_data) > number_of_students:
+
+    if len(students_data) > number_of_students and random_data:
         messages_list.append(f'There are {len(students_data)} results')
         messages_list.append(
-            f'Here {number_of_students} are some random students ')
+            f'Here {number_of_students} are some random students')
         selection = random.sample(students_data, number_of_students)
+    elif len(students_data) > 1 and not random_data:
+        messages_list.append(
+            f'Here {number_of_students} are some of the best results')
+        selection = students_data[0:number_of_students]
     else:
         selection = students_data
 
@@ -22,6 +26,18 @@ def process_students_data(students_data):
         messages_list.append(student.show_data())
 
     return messages_list
+
+
+def search_by_expression(expression):
+    api_endpoint = f'{expression}'
+    response = requests.get(''.join([api_url, api_endpoint]))
+    if response.status_code == 200:
+        messages = process_students_data(
+            response.json(),
+            number_of_students=5,
+            random_data=False
+        )
+        return messages
 
 
 def search_by_name(name):
