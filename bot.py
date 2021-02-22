@@ -21,6 +21,16 @@ updater = Updater(token=bot_token, use_context=True)
 dispatcher = updater.dispatcher
 
 
+def process_data(update, context, data):
+    if isinstance(data, dict):
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=data['message']
+        )
+    else:
+        send_many_messages(update, context, data)
+
+
 def send_picture(update, context, data):
     dni = data.split('\n')[1]
     url = search_picture(dni)
@@ -28,19 +38,24 @@ def send_picture(update, context, data):
         context.bot.send_photo(chat_id=update.effective_chat.id, photo=url)
 
 
-def send_many_messages(chat_id, context, messages):
+def send_many_messages(update, context, messages):
     for message in messages:
         context.bot.send_message(
-            chat_id=chat_id,
+            chat_id=update.effective_chat.id,
             text=message
         )
+
+    if len(messages) == 1:
+        send_picture(update, context, data=messages[0])
 
 
 def search_dni(update, context):
     data = search_by_dni(context.args[0])
     if isinstance(data, dict):
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=data['message'])
+            chat_id=update.effective_chat.id,
+            text=data['message']
+        )
     else:
         context.bot.send_message(chat_id=update.effective_chat.id, text=data)
         send_picture(update, context, data)
@@ -48,10 +63,7 @@ def search_dni(update, context):
 
 def search_name(update, context):
     data = search_by_name(context.args[0])
-    if isinstance(data, list):
-        send_many_messages(update.effective_chat.id, context, data)
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+    process_data(update, context, data)
 
 
 def search_second_name(update, context):
