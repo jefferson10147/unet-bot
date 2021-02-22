@@ -41,7 +41,7 @@ def search_by_second_name(second_name):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There are not students with that second_name'
+        return {'message': 'There are not students with that second name'}
 
 
 def search_by_lastname(lastname):
@@ -51,7 +51,7 @@ def search_by_lastname(lastname):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There are not students with that lastname'
+        return {'message': 'There are not students with that last name'}
 
 
 def search_by_second_lastname(second_lastname):
@@ -61,7 +61,7 @@ def search_by_second_lastname(second_lastname):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There are not students with that second lastname'
+        return {'message': 'There are not students with that second last name'}
 
 
 def search_by_name_and_lastname(name, lastname):
@@ -71,7 +71,7 @@ def search_by_name_and_lastname(name, lastname):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There are not students with that name and lastname'
+        return {'message': 'There are not students with that name and last name'}
 
 
 def search_by_dni(dni):
