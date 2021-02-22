@@ -83,4 +83,17 @@ def search_by_dni(dni):
         return student.show_data()
 
     if response.status_code == 404:
-        return 'Dni not found'
+        return {'message': 'Dni not found'}
+
+
+def search_picture(dni):
+    unet_url = f'https://control.unet.edu.ve/imagenes/FotosE/{dni}jpg'
+    response = requests.get(unet_url)
+    if response.status_code == 200:
+        return unet_url
+
+    if dni.startswith('V00'):
+        return None
+
+    dni = dni.replace('V', 'V00')
+    return search_picture(dni)

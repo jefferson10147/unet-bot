@@ -7,7 +7,8 @@ from modules.searches import (
     search_by_second_name,
     search_by_lastname,
     search_by_second_lastname,
-    search_by_name_and_lastname
+    search_by_name_and_lastname,
+    search_picture
 )
 
 
@@ -20,6 +21,13 @@ updater = Updater(token=bot_token, use_context=True)
 dispatcher = updater.dispatcher
 
 
+def send_picture(update, context, data):
+    dni = data.split('\n')[1]
+    url = search_picture(dni)
+    if url:
+        context.bot.send_photo(chat_id=update.effective_chat.id, photo=url)
+
+
 def send_many_messages(chat_id, context, messages):
     for message in messages:
         context.bot.send_message(
@@ -30,10 +38,12 @@ def send_many_messages(chat_id, context, messages):
 
 def search_dni(update, context):
     data = search_by_dni(context.args[0])
-    context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=data
-    )
+    if isinstance(data, dict):
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=data['message'])
+    else:
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+        send_picture(update, context, data)
 
 
 def search_name(update, context):
@@ -41,10 +51,7 @@ def search_name(update, context):
     if isinstance(data, list):
         send_many_messages(update.effective_chat.id, context, data)
     else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data
-        )
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
 
 
 def search_second_name(update, context):
@@ -52,10 +59,7 @@ def search_second_name(update, context):
     if isinstance(data, list):
         send_many_messages(update.effective_chat.id, context, data)
     else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data
-        )
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
 
 
 def search_lastname(update, context):
@@ -63,10 +67,7 @@ def search_lastname(update, context):
     if isinstance(data, list):
         send_many_messages(update.effective_chat.id, context, data)
     else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data
-        )
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
 
 
 def search_second_lastname(update, context):
@@ -74,10 +75,7 @@ def search_second_lastname(update, context):
     if isinstance(data, list):
         send_many_messages(update.effective_chat.id, context, data)
     else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data
-        )
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
 
 
 def search_name_lastname(update, context):
@@ -85,10 +83,7 @@ def search_name_lastname(update, context):
     if isinstance(data, list):
         send_many_messages(update.effective_chat.id, context, data)
     else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data
-        )
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
 
 
 def start(update, context):
@@ -103,14 +98,17 @@ def start_bot():
     search_dni_handler = CommandHandler('dni', search_dni)
     search_name_handler = CommandHandler('name', search_name)
     search_second_name_handler = CommandHandler(
-        'second_name', search_second_name
+        'second_name',
+        search_second_name
     )
     search_lastname_handler = CommandHandler('lastname', search_lastname)
     search_second_lastname_handler = CommandHandler(
-        'second_lastname', search_second_lastname
+        'second_lastname',
+        search_second_lastname
     )
     search_name_lastname_handler = CommandHandler(
-        'name_lastname', search_name_lastname
+        'name_lastname',
+        search_name_lastname
     )
 
     dispatcher.add_handler(start_handler)
