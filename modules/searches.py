@@ -8,16 +8,17 @@ api_url = 'https://unet-api.herokuapp.com/api/v1/search/'
 
 def process_students_data(students_data, number_of_students=10, random_data=True):
     messages_list = []
-
     if len(students_data) > number_of_students and random_data:
         messages_list.append(f'There are {len(students_data)} results')
         messages_list.append(
             f'Here {number_of_students} are some random students')
         selection = random.sample(students_data, number_of_students)
+
     elif len(students_data) > 1 and not random_data:
         messages_list.append(
             f'Here {number_of_students} are some of the best results')
         selection = students_data[0:number_of_students]
+
     else:
         selection = students_data
 
@@ -46,6 +47,7 @@ def search_by_name(name):
     if response.status_code == 200:
         messages = process_students_data(response.json())
         return messages
+
     if response.status_code == 404:
         return {'message': 'There are not students with that name'}
 
@@ -56,6 +58,7 @@ def search_by_second_name(second_name):
     if response.status_code == 200:
         messages = process_students_data(response.json())
         return messages
+
     if response.status_code == 404:
         return {'message': 'There are not students with that second name'}
 
@@ -66,6 +69,7 @@ def search_by_lastname(lastname):
     if response.status_code == 200:
         messages = process_students_data(response.json())
         return messages
+
     if response.status_code == 404:
         return {'message': 'There are not students with that last name'}
 
@@ -76,6 +80,7 @@ def search_by_second_lastname(second_lastname):
     if response.status_code == 200:
         messages = process_students_data(response.json())
         return messages
+
     if response.status_code == 404:
         return {'message': 'There are not students with that second last name'}
 
@@ -86,6 +91,7 @@ def search_by_name_and_lastname(name, lastname):
     if response.status_code == 200:
         messages = process_students_data(response.json())
         return messages
+
     if response.status_code == 404:
         return {'message': 'There are not students with that name and last name'}
 
@@ -95,7 +101,6 @@ def search_by_dni(dni):
     response = requests.get(''.join([api_url, api_endpoint]))
     if response.status_code == 200:
         student = Student(**response.json())
-
         return student.show_data()
 
     if response.status_code == 404:
