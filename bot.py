@@ -68,34 +68,22 @@ def search_name(update, context):
 
 def search_second_name(update, context):
     data = search_by_second_name(context.args[0])
-    if isinstance(data, list):
-        send_many_messages(update.effective_chat.id, context, data)
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+    process_data(update, context, data)
 
 
 def search_lastname(update, context):
     data = search_by_lastname(context.args[0])
-    if isinstance(data, list):
-        send_many_messages(update.effective_chat.id, context, data)
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+    process_data(update, context, data)
 
 
 def search_second_lastname(update, context):
     data = search_by_second_lastname(context.args[0])
-    if isinstance(data, list):
-        send_many_messages(update.effective_chat.id, context, data)
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+    process_data(update, context, data)
 
 
 def search_name_lastname(update, context):
     data = search_by_name_and_lastname(context.args[0], context.args[1])
-    if isinstance(data, list):
-        send_many_messages(update.effective_chat.id, context, data)
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+    process_data(update, context, data)
 
 
 def start(update, context):
