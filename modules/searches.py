@@ -31,7 +31,7 @@ def search_by_name(name):
         messages = process_students_data(response.json())
         return messages
     if response.status_code == 404:
-        return 'There are not students with that name'
+        return {'message': 'There are not students with that name'}
 
 
 def search_by_second_name(second_name):
