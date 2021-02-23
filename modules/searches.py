@@ -19,7 +19,7 @@ def process_students_data(students_data, number_of_students=10, random_data=True
 
     elif len(students_data) > 1 and not random_data:
         messages_list.append(
-            f'Here are {number_of_students} are some of the best results')
+            f'Here are {number_of_students} some of the best results')
         selection = students_data[0:number_of_students]
 
     else:
