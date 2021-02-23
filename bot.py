@@ -89,7 +89,7 @@ def search_expression(update, context):
         data = search_by_dni(update.message.text)
         if isinstance(data, str):
             data = [data]
-        
+
         process_data(update, context, data)
 
     else:

@@ -8,10 +8,10 @@ class Student():
         if kwargs['email']:
             self.email = kwargs['email']
 
-        if 'second_name' in kwargs.keys():
+        if kwargs['second_name']:
             self.second_name = kwargs['second_name']
 
-        if 'second_lastname' in kwargs.keys():
+        if kwargs['second_lastname']:
             self.second_lastname = kwargs['second_lastname']
 
     def show_data(self):
