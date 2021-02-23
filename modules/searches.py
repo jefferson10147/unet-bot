@@ -11,7 +11,7 @@ def process_students_data(students_data, number_of_students=10, random_data=True
     if len(students_data) > number_of_students and random_data:
         messages_list.append(f'There are {len(students_data)} results')
         messages_list.append(
-            f'Here {number_of_students} are some random students')
+            f'Here are {number_of_students} random students')
         selection = random.sample(students_data, number_of_students)
 
     elif len(students_data) > 1 and not random_data:
