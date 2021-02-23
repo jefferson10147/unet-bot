@@ -1,5 +1,8 @@
+import os
 import random
 import requests
+from json import dumps
+from pathlib import Path, PurePath
 from .students_model import Student
 
 
@@ -108,6 +111,9 @@ def search_by_dni(dni):
 
 
 def search_picture(dni):
+    if os.path.exists(f'./img/{dni}jpeg'):
+        return open(f'./img/{dni}jpeg', 'rb')
+
     unet_url = f'https://control.unet.edu.ve/imagenes/FotosE/{dni}jpg'
     response = requests.get(unet_url)
     if response.status_code == 200:

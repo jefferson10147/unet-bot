@@ -1,4 +1,5 @@
 env/
 modules/__pycache__/
+img/
 .vscode/
 .env
