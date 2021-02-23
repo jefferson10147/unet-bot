@@ -53,15 +53,7 @@ def process_data(update, context, data):
 
 def search_dni(update, context):
     data = search_by_dni(context.args[0])
-    if isinstance(data, dict):
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=data['message']
-        )
-
-    else:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
-        send_picture(update, context, data)
+    process_data(update, context, [data])
 
 
 def search_name(update, context):
