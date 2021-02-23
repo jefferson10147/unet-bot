@@ -90,8 +90,14 @@ def search_name_lastname(update, context):
 
 
 def search_expression(update, context):
-    data = search_by_expression(update.message.text)
-    process_data(update, context, data)
+    if update.message.text.isnumeric():
+        data = search_by_dni(update.message.text)
+        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
+        send_picture(update, context, data)
+
+    else:
+        data = search_by_expression(update.message.text)
+        process_data(update, context, data)
 
 
 def start(update, context):
