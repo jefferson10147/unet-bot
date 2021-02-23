@@ -53,7 +53,10 @@ def process_data(update, context, data):
 
 def search_dni(update, context):
     data = search_by_dni(context.args[0])
-    process_data(update, context, [data])
+    if isinstance(data, str):
+        data = [data]
+
+    process_data(update, context, data)
 
 
 def search_name(update, context):
@@ -84,8 +87,10 @@ def search_name_lastname(update, context):
 def search_expression(update, context):
     if update.message.text.isnumeric():
         data = search_by_dni(update.message.text)
-        context.bot.send_message(chat_id=update.effective_chat.id, text=data)
-        send_picture(update, context, data)
+        if isinstance(data, str):
+            data = [data]
+        
+        process_data(update, context, data)
 
     else:
         accuracy = len(update.message.text.split(' '))

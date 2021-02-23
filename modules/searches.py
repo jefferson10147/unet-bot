@@ -50,6 +50,7 @@ def search_by_expression(expression, accuracy):
         for data in filtered_results:
             if float(data['accuracy']) > float(accuracy):
                 final_data.append(data)
+                
         messages = process_students_data(
             final_data,
             number_of_students=len(final_data),
