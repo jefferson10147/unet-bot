@@ -88,7 +88,8 @@ def search_expression(update, context):
         send_picture(update, context, data)
 
     else:
-        data = search_by_expression(update.message.text)
+        accuracy = len(update.message.text.split(' '))
+        data = search_by_expression(update.message.text, accuracy)
         process_data(update, context, data)
 
 
