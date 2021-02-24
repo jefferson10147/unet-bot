@@ -43,8 +43,11 @@ def search_by_expression(expression, accuracy):
     api_endpoint = f'{expression}'
     response = requests.get(''.join([api_url, api_endpoint]))
     if response.status_code == 200:
-        max_results = 25
         results = response.json()
+        if not results:
+            return {'message': f'No results for {expression}'}
+
+        max_results = 25
         if len(results) > max_results:
             results = results[:max_results]
 
@@ -53,7 +56,7 @@ def search_by_expression(expression, accuracy):
         for data in filtered_results:
             if float(data['accuracy']) >= float(accuracy):
                 final_data.append(data)
-        
+
         messages = process_students_data(
             final_data,
             number_of_students=len(final_data),
