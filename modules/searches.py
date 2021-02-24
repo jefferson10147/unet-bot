@@ -44,13 +44,16 @@ def search_by_expression(expression, accuracy):
     response = requests.get(''.join([api_url, api_endpoint]))
     if response.status_code == 200:
         max_results = 25
-        results = response.json()[:max_results]
+        results = response.json()
+        if len(results) > max_results:
+            results = results[:max_results]
+
         filtered_results = list(filter(filter_data, results))
         final_data = []
         for data in filtered_results:
-            if float(data['accuracy']) > float(accuracy):
+            if float(data['accuracy']) >= float(accuracy):
                 final_data.append(data)
-                
+        
         messages = process_students_data(
             final_data,
             number_of_students=len(final_data),
