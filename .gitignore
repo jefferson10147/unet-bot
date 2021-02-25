@@ -1,5 +1,6 @@
 env/
 modules/__pycache__/
 img/
+greet.txt
 .vscode/
 .env

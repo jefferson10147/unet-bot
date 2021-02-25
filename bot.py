@@ -99,27 +99,32 @@ def search_expression(update, context):
 
 
 def start(update, context):
+    with open('greet.txt', 'r') as file:
+        bot_greet = file.read()
+    
+    username = update.message.from_user['first_name']
+    user_greet = f'Hola {username} 😺'
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text='Bienvenido wachin'
+        text='\n'.join([user_greet, bot_greet])
     )
 
 
 def start_bot():
     start_handler = CommandHandler('start', start)
-    search_dni_handler = CommandHandler('dni', search_dni)
-    search_name_handler = CommandHandler('name', search_name)
+    search_dni_handler = CommandHandler('ci', search_dni)
+    search_name_handler = CommandHandler('nombre', search_name)
     search_second_name_handler = CommandHandler(
-        'second_name',
+        'segundo_nombre',
         search_second_name
     )
-    search_lastname_handler = CommandHandler('lastname', search_lastname)
+    search_lastname_handler = CommandHandler('apellido', search_lastname)
     search_second_lastname_handler = CommandHandler(
-        'second_lastname',
+        'segundo_apellido',
         search_second_lastname
     )
     search_name_lastname_handler = CommandHandler(
-        'name_lastname',
+        'nombre_apellido',
         search_name_lastname
     )
     text_handler = MessageHandler(Filters.text, search_expression)
