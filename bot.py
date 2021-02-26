@@ -17,8 +17,10 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.DEBUG
 )
-bot_token = config('bot_token')
-updater = Updater(token=bot_token, use_context=True)
+PORT = int(config('port'))
+BOT_TOKEN = config('bot_token')
+APP_URL = config('app_url')
+updater = Updater(token=BOT_TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 
 
@@ -141,7 +143,8 @@ def start_bot():
 
 def run():
     start_bot()
-    updater.start_polling()
+    updater.start_webhook(liste="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
+    updater.bot.setWebhook(''.join([APP_URL,BOT_TOKEN]))
     updater.idle()
 
 
