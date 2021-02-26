@@ -15,7 +15,7 @@ from modules.searches import (
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.DEBUG
+    level=logging.INFO
 )
 PORT = int(config('port'))
 BOT_TOKEN = config('bot_token')
