@@ -13,15 +13,13 @@ from modules.searches import (
 )
 
 
+BOT_TOKEN = config('bot_token')
+updater = Updater(token=BOT_TOKEN, use_context=True)
+dispatcher = updater.dispatcher
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-PORT = int(config('port'))
-BOT_TOKEN = config('bot_token')
-APP_URL = config('app_url')
-updater = Updater(token=BOT_TOKEN, use_context=True)
-dispatcher = updater.dispatcher
 
 
 def send_picture(update, context, data):
@@ -103,7 +101,7 @@ def search_expression(update, context):
 def start(update, context):
     with open('greet.txt', 'r') as file:
         bot_greet = file.read()
-    
+
     username = update.message.from_user['first_name']
     user_greet = f'Hola {username} 😺'
     context.bot.send_message(
@@ -139,13 +137,12 @@ def start_bot():
     dispatcher.add_handler(search_second_lastname_handler)
     dispatcher.add_handler(search_name_lastname_handler)
     dispatcher.add_handler(text_handler)
+    updater.start_polling()
+    updater.idle()
 
 
 def run():
     start_bot()
-    updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
-    updater.bot.setWebhook(''.join([APP_URL,BOT_TOKEN]))
-    updater.idle()
 
 
 if __name__ == '__main__':
