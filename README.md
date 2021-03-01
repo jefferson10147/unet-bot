@@ -1,5 +1,8 @@
-<p align="center">
-  <img src="https://static05.cminds.com/wp-content/uploads/WP_Telegram_Bot_Plugin_Illustravive_Banner.jpg">
+<p align="right">
+  <img src="https://miro.medium.com/max/400/1*L-rBBZXiYJQyNR3kr8xFTw.png">
+</p>
+<p align="left">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Logo-unet_sin_texto_azul.png">
 </p>
 
 # UNET Telegram bot 
