@@ -1,7 +1,5 @@
 <p align="right">
   <img src="https://miro.medium.com/max/400/1*L-rBBZXiYJQyNR3kr8xFTw.png">
-</p>
-<p align="left">
   <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Logo-unet_sin_texto_azul.png">
 </p>
 
