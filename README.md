@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/python-telegram-bot/logos/blob/master/logo-text/png/ptb-raw-logo-text_768.png?raw=true">
+  <img src="https://static05.cminds.com/wp-content/uploads/WP_Telegram_Bot_Plugin_Illustravive_Banner.jpg">
 </p>
 
 # UNET Telegram bot 
