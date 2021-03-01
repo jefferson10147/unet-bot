@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://miro.medium.com/max/400/1*L-rBBZXiYJQyNR3kr8xFTw.png">
+  <img  src="https://miro.medium.com/max/400/1*L-rBBZXiYJQyNR3kr8xFTw.png"  height="300">
   <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Logo-unet_sin_texto_azul.png">
 </p>
 
