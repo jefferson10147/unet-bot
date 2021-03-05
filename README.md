@@ -28,7 +28,7 @@ $ pip install -r requirements.txt
 5- Create and export variables to .env file:
 ```bash
 $ touch .env
-$ echo "bot_token=" > your_bot_token
+$ echo "bot_token=your_bot_token" > .env 
 ```
 You generate bot token by creating a new bot with [@botfather](https://t.me/botfather)
 
