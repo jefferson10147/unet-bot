@@ -59,3 +59,7 @@ The bot cosumes a API currently running at Heroku cloud. Visit [Home page](https
 ## Bot example
 
 You can try this bot at [@unetpicbot](https://telegram.me/unetpicbot)
+
+## Special thanks
+
+To my friend Pedro Labrador who created the main idea and created the first version of this bot.
