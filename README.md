@@ -62,4 +62,4 @@ You can try this bot at [@unetpicbot](https://telegram.me/unetpicbot)
 
 ## Special thanks
 
-To my friend Pedro Labrador who created the main idea and created the first version of this bot.
+To my friend Pedro Labrador who created the main idea and created the first version of this bot. He is @PedroLabrador at telegram.
